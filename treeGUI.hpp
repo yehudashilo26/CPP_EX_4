@@ -1,3 +1,4 @@
+// by Yehuda Avraham 325550069 , Gmail:yehudav03@gmail.com
 #include "node.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
