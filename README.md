@@ -1,4 +1,3 @@
-// by Yehuda Avraham 325550069 , Gmail:yehudav03@gmail.com
 <div directon='right' style="text-align: right">
 
 # מבנה נתונים עץ עם אפשרויות מעבר מרובות
@@ -106,6 +105,18 @@ cout << endl;
 TreeGUI<int> gui(tree.get_root());
 gui.draw();
 ```
+
+## תרומה
+
+אם ברצונך לתרום לפרויקט זה, בבקשה פתח פורק ושלח בקשת משיכה.
+
+## רישיון
+
+פרויקט זה מוגן ברישיון MIT - ראה קובץ ה-LICENSE לפרטים נוספים.
+
+## יוצרים
+
+- שמך - [yourusername](https://github.com/yourusername)
 
 ---
 

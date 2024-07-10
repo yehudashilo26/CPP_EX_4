@@ -1,4 +1,3 @@
-// by Yehuda Avraham 325550069 , Gmail:yehudav03@gmail.com
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 #include "Complex.hpp"
@@ -36,8 +35,8 @@ TEST_CASE("Iterators Testing")
     for (auto node = tree.begin_pre_order(); node != tree.end_pre_order(); ++node)
     {
         Node<double> expected = nodes.front();
-        nodes.erase(nodes.begin());
         CHECK(*node == expected);
+        nodes.erase(nodes.begin());
     }
 
     // check post order iterator
@@ -46,8 +45,8 @@ TEST_CASE("Iterators Testing")
     for (auto node = tree.begin_post_order(); node != tree.end_post_order(); ++node)
     {
         Node<double> expected = nodes.front();
-        nodes.erase(nodes.begin());
         CHECK(*node == expected);
+        nodes.erase(nodes.begin());
     }
 
     // check in order iterator
@@ -56,8 +55,8 @@ TEST_CASE("Iterators Testing")
     for (auto node = tree.begin_in_order(); node != tree.end_in_order(); ++node)
     {
         Node<double> expected = nodes.front();
-        nodes.erase(nodes.begin());
         CHECK(*node == expected);
+        nodes.erase(nodes.begin());
     }
 
     // check BFS iterator
@@ -66,8 +65,8 @@ TEST_CASE("Iterators Testing")
     for (auto node = tree.begin_bfs_scan(); node != tree.end_bfs_scan(); ++node)
     {
         Node<double> expected = nodes.front();
-        nodes.erase(nodes.begin());
         CHECK(*node == expected);
+        nodes.erase(nodes.begin());
     }
 
     // check DFS iterator
@@ -77,33 +76,30 @@ TEST_CASE("Iterators Testing")
     for (auto node = tree.begin_dfs_scan(); node != tree.end_dfs_scan(); ++node)
     {
         Node<double> expected = nodes.front();
-        nodes.erase(nodes.begin());
         CHECK(*node == expected);
+        nodes.erase(nodes.begin());
     }
-
-    
-
 }
-
-
 
 TEST_CASE("Template Testings") // Testing Template
 {
     Node<Complex> root_node_complex = Node<Complex>(Complex(1, 1));
     Tree<Complex, 4> complex_tree; // Tree that contains complex numbers.
     complex_tree.add_root(root_node_complex);
+    int value = 2;
 
-    Node<Complex> n1_complex = Node<Complex>(Complex(2, 2));
-    Node<Complex> n2_complex = Node<Complex>(Complex(3, 3));
-    Node<Complex> n3_complex = Node<Complex>(Complex(4, 4));
-    Node<Complex> n4_complex = Node<Complex>(Complex(5, 5));
-    Node<Complex> n5_complex = Node<Complex>(Complex(6, 6));
-    Node<Complex> n6_complex = Node<Complex>(Complex(7, 7));
-    Node<Complex> n7_complex = Node<Complex>(Complex(8, 8));
-    Node<Complex> n8_complex = Node<Complex>(Complex(9, 9));
-    Node<Complex> n9_complex = Node<Complex>(Complex(10, 10));
-    Node<Complex> n10_complex = Node<Complex>(Complex(11, 11));
-    Node<Complex> n11_complex = Node<Complex>(Complex(12, 12));
+    Node<Complex> n1_complex = Node<Complex>(Complex(value, value));
+    value++;
+    Node<Complex> n2_complex = Node<Complex>(Complex(value, value));value++;
+    Node<Complex> n3_complex = Node<Complex>(Complex(value, value));value++;
+    Node<Complex> n4_complex = Node<Complex>(Complex(value, value));value++;
+    Node<Complex> n5_complex = Node<Complex>(Complex(value, value));value++;
+    Node<Complex> n6_complex = Node<Complex>(Complex(value, value));value++;
+    Node<Complex> n7_complex = Node<Complex>(Complex(value, value));value++;
+    Node<Complex> n8_complex = Node<Complex>(Complex(value, value));value++;
+    Node<Complex> n9_complex = Node<Complex>(Complex(value, value));value++;
+    Node<Complex> n10_complex = Node<Complex>(Complex(value, value));value++;
+    Node<Complex> n11_complex = Node<Complex>(Complex(value, value));value++;
 
     complex_tree.add_sub_node(root_node_complex, n1_complex);
     complex_tree.add_sub_node(root_node_complex, n7_complex);
@@ -117,7 +113,7 @@ TEST_CASE("Template Testings") // Testing Template
 
     CHECK_THROWS(complex_tree.add_sub_node(n10_complex, n11_complex)); // n10_complex is not in the tree
 
-// preorder iterator for K larger than 2 should be the same as DFS
+    // preorder iterator for K larger than 2 should be the same as DFS
 
     vector<Node<Complex>> nodes = {root_node_complex, n1_complex, n2_complex, n3_complex, n7_complex, n4_complex, n5_complex, n6_complex, n8_complex, n9_complex};
     // check pre order iterator
@@ -125,8 +121,8 @@ TEST_CASE("Template Testings") // Testing Template
     {
 
         Node<Complex> expected = nodes.front();
-        nodes.erase(nodes.begin());
         CHECK(*node == expected);
+        nodes.erase(nodes.begin());
     }
 
     // check post order iterator
@@ -135,11 +131,10 @@ TEST_CASE("Template Testings") // Testing Template
     for (auto node = complex_tree.begin_post_order(); node != complex_tree.end_post_order(); ++node)
     {
         Node<Complex> expected = nodes.front();
-        nodes.erase(nodes.begin());
         CHECK(*node == expected);
+        nodes.erase(nodes.begin());
     }
 
-    
     Tree<string, 2> string_tree; // Binary tree that contains strings.
     Node<string> root_node_string = Node<string>("root");
     string_tree.add_root(root_node_string);
@@ -167,12 +162,13 @@ TEST_CASE("Template Testings") // Testing Template
     for (auto node = string_tree.begin_pre_order(); node != string_tree.end_pre_order(); ++node)
     {
         Node<string> expected = nodes_string.front();
-        nodes_string.erase(nodes_string.begin());
         CHECK(*node == expected);
+        nodes_string.erase(nodes_string.begin());
     }
 }
 
-TEST_CASE("One Child tree nodes"){
+TEST_CASE("One Child tree nodes")
+{
     Tree<int, 1> tree;
 
     Node<int> root = Node<int>(1);
@@ -195,8 +191,8 @@ TEST_CASE("One Child tree nodes"){
     for (auto node = tree.begin_pre_order(); node != tree.end_pre_order(); ++node)
     {
         Node<int> expected = nodes.front();
-        nodes.erase(nodes.begin());
         CHECK(*node == expected);
+        nodes.erase(nodes.begin());
     }
 
     // check post order iterator
@@ -205,8 +201,8 @@ TEST_CASE("One Child tree nodes"){
     for (auto node = tree.begin_post_order(); node != tree.end_post_order(); ++node)
     {
         Node<int> expected = nodes.front();
-        nodes.erase(nodes.begin());
         CHECK(*node == expected);
+        nodes.erase(nodes.begin());
     }
 
     // check in order iterator
@@ -215,10 +211,9 @@ TEST_CASE("One Child tree nodes"){
     for (auto node = tree.begin_in_order(); node != tree.end_in_order(); ++node)
     {
         Node<int> expected = nodes.front();
-        nodes.erase(nodes.begin());
         CHECK(*node == expected);
+        nodes.erase(nodes.begin());
     }
 
     cout << tree << endl;
-
 }

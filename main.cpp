@@ -78,7 +78,7 @@ int main()
     cout << "Heap:" << endl;
     Tree<double> heap_tree = tree.myHeap();
 
-    cout << heap_tree; // Should print the graph using GUI.
+    // cout << heap_tree; // Should print the graph using GUI.
     for (auto node = heap_tree.begin_bfs_scan(); node != heap_tree.end_bfs_scan(); ++node)
     {
         cout << node->get_value() << " ";
@@ -104,7 +104,7 @@ int main()
     three_ary_tree.add_sub_node(n1, n4);
     three_ary_tree.add_sub_node(n2, n5);
 
-    cout << three_ary_tree; // Should print the graph using GUI.
+    // cout << three_ary_tree; // Should print the graph using GUI.
     cout << endl
          << "Three ary tree:" << endl;
     for (auto node = three_ary_tree.begin_pre_order(); node != three_ary_tree.end_pre_order(); ++node)
@@ -144,7 +144,7 @@ int main()
     complex_tree.add_sub_node(n4_complex, n8_complex);
     complex_tree.add_sub_node(n4_complex, n9_complex);
 
-    cout << complex_tree; // Should print the graph using GUI.
+    // cout << complex_tree; // Should print the graph using GUI.
     cout << endl
          << "Complex tree:" << endl;
     cout << "Pre order:" << endl;
@@ -235,7 +235,7 @@ int main()
     big_tree.add_sub_node(nodes[26], nodes[29]);
     big_tree.add_sub_node(nodes[29], nodes[27]);
 
-    cout << big_tree; // Should print the graph using GUI.
+    // cout << big_tree; // Should print the graph using GUI.
 
     return 0;
 }

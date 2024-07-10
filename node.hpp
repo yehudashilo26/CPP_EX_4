@@ -1,4 +1,3 @@
-// by Yehuda Avraham 325550069 , Gmail:yehudav03@gmail.com
 #ifndef NODE_HPP
 #define NODE_HPP
 

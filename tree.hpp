@@ -1,4 +1,3 @@
-// by Yehuda Avraham 325550069 , Gmail:yehudav03@gmail.com
 #include <queue>
 #include <stack>
 #include <algorithm>
@@ -240,10 +239,6 @@ public:
                         this->order = IterationOrder::DFS;
                     }
                     break;
-                case IterationOrder::BFS:
-                    break;
-                case IterationOrder::DFS:
-                    break;
                 case IterationOrder::Heap:
                     init_heap_scan();
                     break;
@@ -291,12 +286,12 @@ public:
             return *current;
         }
 
-        bool operator==(const Iterator &other)
+        bool operator==(const Iterator &other) const
         {
             return current == other.current;
         }
 
-        bool operator!=(const Iterator &other)
+        bool operator!=(const Iterator &other) const
         {
             return current != other.current;
         }
@@ -307,7 +302,8 @@ public:
 
 private:
     Node<T> *root;
-    Node<T> *find_node(Node<T> &node)
+    
+    Node<T> *find_node(const Node<T> &node)
     {
         bool found = false;
         for (auto node_iter = begin_pre_order(); node_iter != end_pre_order(); ++node_iter)
@@ -320,10 +316,7 @@ private:
                     continue;
                 }
 
-                else
-                {
-                    return &(*node_iter);
-                }
+                return &(*node_iter);
             }
         }
 
@@ -336,9 +329,44 @@ private:
 
 public:
     Tree() : root(nullptr) {}
-    ~Tree() {}
 
-    void add_root(Node<T> &root_node)
+    ~Tree() {
+        delete_tree(root);
+    }
+
+    Tree(const Tree &other) : root(nullptr) {
+        if (other.root != nullptr) {
+            root = new Node<T>(*other.root);
+            copy_children(root, other.root);
+        }
+    }
+
+    Tree(Tree &&other) noexcept : root(other.root) {
+        other.root = nullptr;
+    }
+
+    Tree &operator=(const Tree &other) {
+        if (this == &other) {
+            return *this;
+        }
+        delete_tree(root);
+        if (other.root != nullptr) {
+            root = new Node<T>(*other.root);
+            copy_children(root, other.root);
+        }
+        return *this;
+    }
+
+    Tree &operator=(Tree &&other) noexcept {
+        if (this != &other) {
+            delete_tree(root);
+            root = other.root;
+            other.root = nullptr;
+        }
+        return *this;
+    }
+
+    void add_root(const Node<T> &root_node)
     {
         if (root != nullptr)
         {
@@ -347,7 +375,7 @@ public:
         root = new Node<T>(root_node);
     }
 
-    void add_sub_node(Node<T> &parent, Node<T> &child)
+    void add_sub_node(const Node<T> &parent, const Node<T> &child)
     {
         Node<T> *parent_ptr = find_node(parent);
 
@@ -427,27 +455,26 @@ public:
             throw std::invalid_argument("Heap iterator is only supported for binary trees");
         }
 
-        
         Tree<T> heap;
-        vector<Node<T> *> nodes;
+        vector<Node<T>> nodes;
 
         for (auto node = begin_bfs_scan(); node != end_bfs_scan(); ++node)
         {
-            nodes.push_back(new Node<T>(*node)); // copy the nodes
-            nodes.back()->get_children().clear(); // clear the children
+            nodes.push_back(Node<T>(*node)); // copy the nodes
+            nodes.back().get_children().clear(); // clear the children
         }
 
-        sort(nodes.begin(), nodes.end(), [](Node<T> *a, Node<T> *b) {
-            return a->get_value() < b->get_value();
+        sort(nodes.begin(), nodes.end(), [](Node<T> a, Node<T> b) {
+            return a.get_value() < b.get_value();
         });
 
         // build the new min heap tree
-        heap.add_root(*nodes[0]);
+        heap.add_root(nodes[0]);
 
         int j = 0;
         for (size_t i = 1; i < nodes.size(); i++)
         {
-            heap.add_sub_node(*nodes[j], *nodes[i]);
+            heap.add_sub_node(nodes[j], nodes[i]);
             i%2 == 0 ? j++ : j;
         }
 
@@ -456,6 +483,27 @@ public:
 
     template <typename T1, size_t K1>
     friend std::ostream &operator<<(std::ostream &os, const Tree<T1, K1> &tree);
+
+private:
+    void delete_tree(Node<T> *node) {
+        if (node != nullptr) {
+            for (auto &child : node->get_children()) {
+                delete_tree(child);
+            }
+            delete node;
+        }
+    }
+
+    void copy_children(Node<T> *dest, const Node<T> *src) {
+        if (src == nullptr) {
+            return;
+        }
+        for (const auto &child : src->get_children()) {
+            Node<T> *new_child = new Node<T>(*child);
+            dest->add_child(*new_child);
+            copy_children(new_child, child);
+        }
+    }
 };
 
 template <typename T, size_t K>
